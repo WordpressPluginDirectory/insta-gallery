@@ -30,19 +30,23 @@ class Get extends Base {
 	}
 
 	/**
-	 * Function to get item media file url
+	 * Function to get item media file data
 	 *
 	 * @param array   $item Item to get media url.
 	 * @param boolean $hide_items_with_copyright Property to hide item if has copyright.
 	 * @return array|null
 	 */
-	protected function get_item_media_file_url( array $item = array(), $hide_items_with_copyright ) {
+	protected function get_item_media_file_data( array $item = array(), $hide_items_with_copyright = false ) {
 		if ( isset( $item['media_type'] ) ) {
 			switch ( $item['media_type'] ) {
 				case 'IMAGE':
+					if ( isset( $item['media_url'] ) ) {
+							return [ $item['media_url'], 'IMAGE' ];
+					}
+					break;
 				case 'VIDEO':
 					if ( isset( $item['media_url'] ) ) {
-							return $item['media_url'];
+							return [ $item['media_url'], 'VIDEO' ];
 					}
 					break;
 				case 'CAROUSEL_ALBUM':
@@ -53,38 +57,24 @@ class Get extends Base {
 								$item['children']['data'],
 								function( $child ) {
 									if ( isset( $child['media_url'] ) ) {
-										return $child;
+										return [ $child['media_url'], $child['media_type'] ];
 									}
 								}
 							)
 						);
 						if ( isset( $children[0]['media_url'] ) ) {
-							return $children[0]['media_url'];
+							return [ $children[0]['media_url'], $children[0]['media_type'] ];
 						}
 					}
-					return isset( $item['children']['data'][0]['media_url'] ) ? $item['children']['data'][0]['media_url'] : null;
+					if ( isset( $item['children']['data'][0]['media_url'] ) ) {
+						return [ $item['children']['data'][0]['media_url'], $item['children']['data'][0]['media_type'] ];
+					}
+					return null;
 					break;
 			}
 		}
 
 		return false;
-	}
-
-	/**
-	 * Function to get media file type
-	 *
-	 * @param string $media_url Url to get file type.
-	 * @return string
-	 */
-	protected function get_media_file_type( $media_url ) {
-		$type = parse_url( $media_url );
-
-		$file_type = pathinfo( $type['path'], PATHINFO_EXTENSION );
-
-		if ( 'mp4' === $file_type ) {
-				return 'VIDEO';
-		}
-		return 'IMAGE';
 	}
 
 	/**
@@ -96,9 +86,7 @@ class Get extends Base {
 	 */
 	public function get_item_media( $item = null, $hide_items_with_copyright = null ) {
 
-		$media_file_url = $this->get_item_media_file_url( $item, $hide_items_with_copyright );
-
-		$media_file_type = $this->get_media_file_type( $media_file_url );
+		$media_file_url = $this->get_item_media_file_data( $item, $hide_items_with_copyright );
 
 		if ( ! $media_file_url && false === $hide_items_with_copyright ) {
 			return array(
@@ -106,11 +94,7 @@ class Get extends Base {
 				null,
 			);
 		}
-
-		return array(
-			$media_file_url,
-			$media_file_type,
-		);
+		return $media_file_url;
 	}
 
 	/**
