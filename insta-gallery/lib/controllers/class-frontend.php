@@ -1,6 +1,6 @@
 <?php
 
-namespace QuadLayers\IGG\Frontend;
+namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Models\Feed as Models_Feed;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
@@ -12,7 +12,7 @@ use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\Hashtag_Media as Api_Rest_Hashtag
 /**
  * Frontend Class
  */
-class Load {
+class Frontend {
 
 	protected static $instance;
 

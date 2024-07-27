@@ -1,6 +1,6 @@
 <?php
 
-namespace QuadLayers\IGG\Gutenberg;
+namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Helpers as Helpers;
 use QuadLayers\IGG\Models\Feed as Models_Feed;
@@ -12,7 +12,7 @@ use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Pro
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Media as Api_Rest_User_Media;
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\Hashtag_Media as Api_Rest_Hashtag_Media;
 
-class Load {
+class Gutenberg {
 
 	protected static $instance;
 

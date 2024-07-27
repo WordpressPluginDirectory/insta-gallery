@@ -1,6 +1,6 @@
 <?php
 
-namespace QuadLayers\IGG\Backend;
+namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Models\Feed as Models_Feed;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
@@ -19,7 +19,7 @@ use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\Hashtag_Media as Api_Rest_Hashtag
 /**
  * Backend Class
  */
-class Load {
+class Backend {
 
 	protected static $instance;
 	protected static $menu_slug = 'qligg_backend';
