@@ -3,13 +3,13 @@
 namespace QuadLayers\IGG\Models;
 
 use QuadLayers\WP_Orm\Builder\SingleRepositoryBuilder;
-use QuadLayers\IGG\Entity\Settings as Settings;
+use QuadLayers\IGG\Entity\Setting as Setting;
 
 
 /**
- * Models_Setting Class
+ * Models_Settings Class
  */
-class Setting {
+class Settings {
 
 	protected static $instance;
 	protected $repository;
@@ -17,7 +17,7 @@ class Setting {
 	public function __construct() {
 		$builder = ( new SingleRepositoryBuilder() )
 		->setTable( 'insta_gallery_settings' )
-		->setEntity( Settings::class );
+		->setEntity( Setting::class );
 
 		$this->repository = $builder->getRepository();
 	}
@@ -30,7 +30,7 @@ class Setting {
 	 * @return array
 	 */
 	public function get_args() {
-		return ( new Settings() )->getDefaults();
+		return ( new Setting() )->getDefaults();
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Setting {
 		if ( $entity ) {
 			return $entity->getProperties();
 		} else {
-			$settings = new Settings();
+			$settings = new Setting();
 			return $settings->getProperties();
 		}
 	}

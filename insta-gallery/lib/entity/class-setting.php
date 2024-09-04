@@ -3,7 +3,7 @@ namespace QuadLayers\IGG\Entity;
 
 use QuadLayers\WP_Orm\Entity\SingleEntity;
 
-class Settings extends SingleEntity {
+class Setting extends SingleEntity {
 	public $insta_flush       = false;
 	public $insta_reset       = 8;
 	public $spinner_image_url = '';
